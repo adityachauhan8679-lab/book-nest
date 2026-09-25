@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Immediate defensive guard for window.fetch in iframe / sandbox environments
+      (function() {
+        try {
+          var _rawFetch = window.fetch;
+          var _fetch = function() {
+            return _rawFetch.apply(window, arguments);
+          };
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return _fetch;
+            },
+            set: function(val) {
+              _fetch = val;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          try {
+            if (typeof Window !== 'undefined' && Window.prototype) {
+              var _rawProto = Window.prototype.fetch;
+              var _protoFetch = function() {
+                return _rawProto.apply(window, arguments);
+              };
+              Object.defineProperty(Window.prototype, 'fetch', {
+                get: function() {
+                  return _protoFetch;
+                },
+                set: function(val) {
+                  _protoFetch = val;
+                },
+                configurable: true,
+                enumerable: true
+              });
+            }
+          } catch (e2) {}
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookNest - Modern Online Bookstore</title>
+    <meta name="description" content="A modern online bookstore platform with book scanning, smart categories, cart, wishlist, orders, and comprehensive admin dashboard." />
+    <meta property="og:title" content="BookNest - Modern Online Bookstore" />
+    <meta property="og:description" content="A modern online bookstore platform with book scanning, smart categories, cart, wishlist, orders, and comprehensive admin dashboard." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

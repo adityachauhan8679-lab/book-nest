@@ -1,0 +1,6 @@
+{
+  "name": "BookNest - Modern Online Bookstore",
+  "description": "A modern online bookstore platform with book scanning, smart categories, cart, wishlist, orders, and comprehensive admin dashboard.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
